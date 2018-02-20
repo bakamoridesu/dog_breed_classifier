@@ -63,20 +63,33 @@ $(function() {
     min-width: 400px;
     display: none;
 }
+
+#parentDiv {
+    width: 600px;
+    height: 600px;
+
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+}
 </style>
 
-<form enctype="multipart/form-data" action="/" method="POST">
-    <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
-    Detect breed: <input id="fileupload" name="file" type="file" />
-    <button class="btn btn-lg btn-primary btn-block" type="button">Send </button>
-	<br />
-	<br />
-	<b>Live Preview</b>
-	<br />
-	<br />
-	<div id="dvPreview">
-	</div>
-	<br />
-	<div id="prediction">
-	</div>
-</form>
+
+<div id="parentDiv">
+	<form enctype="multipart/form-data" action="/" method="POST">
+		<input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+		Detect breed: <input id="fileupload" name="file" type="file" />
+		<button class="btn btn-lg btn-primary btn-block" type="button">Send </button>
+		<br />
+		<br />
+		<div id="dvPreview">
+		</div>
+		<br />
+		<div id="prediction">
+		</div>
+	</form>
+</div>
