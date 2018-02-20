@@ -60,7 +60,7 @@ def classify_dog_or_human(img_path):
         breed = Resnet50_predict_breed(img_path)
         result += "Possible breed is " + breed
     elif(face_detector(img_path)):
-        result += "There is a human in your picture. If this human was a dog, he would look like "
+        result += "There is a human in your picture. If this human was a dog, he/she would look like "
         breed = Resnet50_predict_breed(img_path)
         result += breed
     else:
