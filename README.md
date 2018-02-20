@@ -13,6 +13,8 @@ And the output looks something like this:
 
 ![Gray image example](/images/example.jpg)
 
+_It can also classify human images, give it a try!_
+
 ---
 
 The first goal was achieved by using transfer learning. I took the model with superhuman performance aka ResNet50, 
@@ -26,3 +28,18 @@ Then I tried to deploy it on github pages, but it didn't want to work for some r
 
 --- 
 
+## List of possible improvements
+
+There is alot of stuff to do here. But since this app was made within a Deep Learning Nanodegree the main work is in improving the accuracy of predictions . 
+* Prediction improvements:
+  - Data Augmentation
+  - Functionality for dog mutts
+  - Finding a better face detector
+  - Classify several types of dogs and humans
+* Another functional improvements:
+  - Overlay dog ears and nose on human face
+  - Improve interface robustness
+* Visual improvements:
+  - Design background, inputs and all stuff
+  - More accommodative 'processing' label
+  - and so on and so forth
