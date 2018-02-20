@@ -1,0 +1,82 @@
+<!doctype html>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script language="javascript" type="text/javascript">
+$(function () {
+    $("#fileupload").change(function () {
+        $("#dvPreview").html("");
+        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|)$/; //.gif|.png|.bmp)$/;
+        if (regex.test($(this).val().toLowerCase())) {
+            if ($.browser.msie && parseFloat(jQuery.browser.version) <= 9.0) {
+                $("#dvPreview").show();
+                $("#dvPreview")[0].filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = $(this).val();
+            }
+            else {
+                if (typeof (FileReader) != "undefined") {
+                    $("#dvPreview").show();
+                    $("#dvPreview").append("<img />");
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("#dvPreview img").attr("src", e.target.result);
+						$("#dvPreview img").attr("height", 244);
+                    }
+                    reader.readAsDataURL($(this)[0].files[0]);
+
+                } else {
+                    alert("This browser does not support FileReader.");
+                }
+            }
+        } else {
+            alert("Please upload a valid image file.");
+        }
+    });
+});
+
+$(function() {
+    $('button').click(function() {
+	var $input = $("#fileupload");
+    var fd = new FormData;
+    fd.append('file', $input.prop('files')[0]);
+        $.ajax({
+            url: "/_upload/",
+            data: fd,
+            type: 'POST',
+			processData: false,
+            contentType: false,
+            async: true,
+            success: function(response) {
+                console.log(response)
+                if(response != "GET")
+                    $('#prediction').text(response);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
+});
+</script>
+<style type="text/css">
+#dvPreview
+{
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);
+    min-height: 400px;
+    min-width: 400px;
+    display: none;
+}
+</style>
+
+<form enctype="multipart/form-data" action="/" method="POST">
+    <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+    Detect breed: <input id="fileupload" name="file" type="file" />
+    <button class="btn btn-lg btn-primary btn-block" type="button">Send </button>
+	<br />
+	<br />
+	<b>Live Preview</b>
+	<br />
+	<br />
+	<div id="dvPreview">
+	</div>
+	<br />
+	<div id="prediction">
+	</div>
+</form>
