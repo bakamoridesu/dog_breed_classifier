@@ -4,7 +4,7 @@
 $(function () {
     $("#fileupload").change(function () {
         $("#dvPreview").html("");
-        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|)$/; //.gif|.png|.bmp)$/;
+        var regex = /^([a-zA-Zа-яА-Я0-9\s_\\.\-:])+(.jpg|.jpeg)$/;
         if (regex.test($(this).val().toLowerCase())) {
             if ($.browser.msie && parseFloat(jQuery.browser.version) <= 9.0) {
                 $("#dvPreview").show();
@@ -26,16 +26,18 @@ $(function () {
                 }
             }
         } else {
-            alert("Please upload a valid image file.");
+            alert("Please upload a jped file with correct name.");
         }
     });
 });
+
 
 $(function() {
     $('button').click(function() {
 	var $input = $("#fileupload");
     var fd = new FormData;
     fd.append('file', $input.prop('files')[0]);
+    $('#prediction').text('Processing... Please wait. (Sometimes it can take up to one minute)')
         $.ajax({
             url: "/_upload/",
             data: fd,
@@ -49,7 +51,7 @@ $(function() {
                     $('#prediction').text(response);
             },
             error: function(error) {
-                console.log(error);
+                $('#prediction').text('Something went wrong. Try another image.')
             }
         });
     });
@@ -59,37 +61,56 @@ $(function() {
 #dvPreview
 {
     filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);
-    min-height: 400px;
-    min-width: 400px;
+    height: 300px;
     display: none;
+    align-items: center;
 }
 
 #parentDiv {
-    width: 600px;
-    height: 600px;
+    width: 350px;
+    height: 500px;
 
     position: absolute;
     top:0;
     bottom: 0;
     left: 0;
     right: 0;
-
+    background-color: #ffcccc;
     margin: auto;
+    padding: 20px;
 }
+
+p {
+    color: #ff0000;
+    font-weight: bold;
+    font-size: large;
+}
+
+.someclass {
+    background-color: #ffcccc;
+}
+
+body {
+    background-image: url("https://www.caninecommander.com/wp-content/uploads/so-many-dog-breeds-600x417.jpg");
+    background-repeat:no-repeat;/*we want to have one single image not a repeated one*/
+    background-size:cover;
+}
+
 </style>
 
-
-<div id="parentDiv">
-	<form enctype="multipart/form-data" action="/" method="POST">
-		<input type="hidden" name="MAX_FILE_SIZE" value="30000" />
-		Detect breed: <input id="fileupload" name="file" type="file" />
-		<button class="btn btn-lg btn-primary btn-block" type="button">Send </button>
-		<br />
-		<br />
-		<div id="dvPreview">
-		</div>
-		<br />
-		<div id="prediction">
-		</div>
-	</form>
-</div>
+<body>
+    <div id="parentDiv">
+        <p>Select an image and click 'Send'.<br/> Image must be jpeg/jpg</p>
+    	<form enctype="multipart/form-data" action="/" method="POST">
+    		<input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+    		<input id="fileupload" name="file" type="file"/>
+    		<button class="btn btn-lg btn-primary btn-block" type="button">Send </button>
+    		<br />
+    		<div id="dvPreview">
+    		</div>
+    		<br />
+    		<p id="prediction">
+    		</p>
+    	</form>
+    </div>
+</body>
