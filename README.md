@@ -30,7 +30,7 @@ Then I tried to deploy it on github pages, but it didn't want to work for some r
 
 ## List of possible improvements
 
-Although all the project goals are achieved, there is alot of stuff to do here. But since this app was made within a Deep Learning Nanodegree the main work is in improving the accuracy of predictions . 
+Although all of the project goals are achieved, there is alot of stuff to do here. But since this app was made within a Deep Learning Nanodegree the main work is in improving the accuracy of predictions . 
 * Prediction improvements:
   - Data Augmentation
   - Functionality for dog mutts
